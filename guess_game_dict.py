@@ -4,6 +4,7 @@ import datetime
 
 secret = random.randint(1, 30)
 count = 0
+wrong_guesses = []
 
 with open("score_dict.json", "r") as file_handle:
     score_list_dict = json.loads(file_handle.read())
@@ -23,13 +24,17 @@ while True:
             "username": user_name,
             "attempts": count,
             "date": str(datetime.datetime.now()),
-            "secret_number": secret
+            "secret_number": secret,
+            "wrong_guesses": wrong_guesses
         }
         score_list_dict.append(dict_entry)
         with open("score_dict.json", "w") as file_handle:
             file_handle.write(json.dumps(score_list_dict))
         break
+    #elif guess > secret:
+    #    print("Sorry, your guess is too big... The secret number is not " + str(guess))
     elif guess < secret:
         print("Sorry, your guess is too small... The secret number is not " + str(guess))
     else:
         print("Sorry, your guess is too big... The secret number is not " + str(guess))
+    wrong_guesses.append(guess)
