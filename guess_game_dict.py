@@ -9,6 +9,8 @@ with open("score_dict.json", "r") as file_handle:
     score_list_dict = json.loads(file_handle.read())
     print(score_list_dict)
 
+user_name = input("Enter your username: ")
+
 while True:
     guess = int(input("Guess the secret number (between 1 and 30): "))
     count += 1
@@ -18,8 +20,10 @@ while True:
         print("You have guessed {0} times.".format(count))
 
         dict_entry = {
+            "username": user_name,
             "attempts": count,
-            "date": str(datetime.datetime.now())
+            "date": str(datetime.datetime.now()),
+            "secret_number": secret
         }
         score_list_dict.append(dict_entry)
         with open("score_dict.json", "w") as file_handle:
